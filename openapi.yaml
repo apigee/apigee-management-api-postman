@@ -1,0 +1,1795 @@
+openapi: 3.0.0
+info:
+  title: Apigee Edge API Management
+  description: 'A work in progress spec based on the Postman collection'
+  version: 'v1'
+servers:
+- url: https://api.enterprise.apigee.com/v1
+  variables: {}
+paths:
+  /organizations/{ORG}/deployments:
+    get:
+      tags:
+      - Deployments
+      summary: List Deployments
+      description: '  Gets all the deployments of an organization'
+      operationId: ListDeployments
+      parameters:
+      - name: ORG
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /users/{email}/userroles:
+    post:
+      tags:
+      - User Roles
+      summary: User Roles Update
+      description: ''
+      operationId: UserRolesUpdate
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              example:
+                role:
+                - name: orgadmin
+                  organization: dev
+                - name: sysadmin
+              $ref: '#/components/schemas/UserRolesUpdaterequest'
+            example: '{"role":[{"name":"orgadmin","organization":"dev"},{"name":"sysadmin"}]}'
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /users/{email}/userroles/user:
+    delete:
+      tags:
+      - User Roles
+      summary: Delete an organization userrole
+      description: ''
+      operationId: DeleteAnOrganizationUserrole
+      parameters:
+      - name: org
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: '{{ORG}}'
+        example: '{{ORG}}'
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/json
+        example: application/json
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/oauth2/accesstokens/{tokenid}:
+    get:
+      tags:
+      - OAuth
+      summary: OAuth2 Token Details Get
+      description: ''
+      operationId: Oauth2TokenDetailsGet
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/e/{ENV}/keyvaluemaps/{kvm}:
+    get:
+      tags:
+      - KVM
+      summary: KVM Get
+      description: ''
+      operationId: KvmGet
+      parameters:
+      - name: kvm
+        in: path
+        description: 'the name of the key value map'
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    delete:
+      tags:
+      - KVM
+      summary: KVM Delete (Entire KVM)
+      description: ''
+      operationId: KvmDelete(entireKvm)
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /servers:
+    get:
+      tags:
+      - Pods
+      summary: Analytics pod
+      description: ''
+      operationId: AnalyticsPod
+      parameters:
+      - name: pod
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: analytics
+        example: analytics
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      tags:
+      - Servers
+      summary: Deregister
+      description: '  Deregister a Server'
+      operationId: Deregister
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/developers:
+    get:
+      tags:
+      - Developers
+      summary: Get Developers
+      description: ''
+      operationId: GetDevelopers
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      tags:
+      - Developers
+      summary: Create Developer
+      description: ''
+      operationId: CreateDeveloper
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: >-
+                <Developer>
+                  <Email>thisisnottheemail@apigee.com</Email>
+                  <FirstName>Argyle</FirstName>
+                  <LastName>Robinson</LastName>
+                  <UserName>doh</UserName>
+                  <OrganizationName>Apigee</OrganizationName>
+                  <Status>active</Status>
+                  <Attributes/>
+                </Developer>
+            example: >-
+              <Developer>
+                <Email>thisisnottheemail@apigee.com</Email>
+                <FirstName>Argyle</FirstName>
+                <LastName>Robinson</LastName>
+                <UserName>doh</UserName>
+                <OrganizationName>Apigee</OrganizationName>
+                <Status>active</Status>
+                <Attributes/>
+              </Developer>
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/apis:
+    get:
+      tags:
+      - APIs
+      summary: Api list
+      description: ''
+      operationId: ApiList
+      parameters:
+      - name: ORG
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      tags:
+      - APIs
+      summary: Deploy API
+      description: "  Deploy the API in the environment you want to with a revision number one higher than the already existing revisions\n    \n`curl -v -u username:password -X POST http://localhost:8080/organizations/{{ORG}}/apis/{{API}}/revisions/<revisionnumber>/deployments?action=deploy\\&env={{ENV}} -H \"Content-Type: application/octet-stream\"`"
+      operationId: DeployApi
+      parameters:
+      - name: action
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: import\
+        example: import\
+      - name: name
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: {api}
+        example: {api}
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/pods:
+    get:
+      tags:
+      - Pods
+      summary: Get Associated  Pods
+      description: ''
+      operationId: GetAssociatedPods
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      tags:
+      - Pods
+      summary: Disassociate Org from POD
+      description: '  Disassociate a pod with an Organization'
+      operationId: DisassociateOrgFromPod
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/e/{ENV}/caches:
+    get:
+      tags:
+      - Cache
+      summary: List caches
+      description: ''
+      operationId: ListCaches
+      parameters:
+      - name: ORG
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: ENV
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /audits/organizations/{ORG}/companies:
+    get:
+      tags:
+      - Audit
+      summary: Audit
+      description: ''
+      operationId: Audit
+      parameters:
+      - name: expand
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          example: true
+        example: true
+      - name: timeline
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: month
+        example: month
+      - name: ORG
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/developers/{email}:
+    get:
+      tags:
+      - Users
+      summary: Developer Details Get
+      description: ''
+      operationId: DeveloperDetailsGet
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /servers/<uuid>:
+    get:
+      tags:
+      - Servers
+      summary: List Server by UUID
+      description: '    Replace <uuid> with the UUID of the server whose information is needed'
+      operationId: ListServerByUuid
+      parameters: []
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /cluster:
+    get:
+      tags:
+      - Misc
+      summary: Cluster Status
+      description: "  If memberCount and the reachableCount are not the same check firewall connectivity PORT:4526 between the nodes.\n    \n    Add /members to see individual node information for each cluster member"
+      operationId: ClusterStatus
+      parameters: []
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/apis/testing:
+    delete:
+      tags:
+      - APIs
+      summary: Delete an API
+      description: >2-
+          Make sure all revisions of an API are removed before going ahead and undeploying an API
+
+        `curl -v -u username:password http://localhost:8080/organizations/<orgname>/apis/<api you want to delete> -X DELETE`
+      operationId: DeleteAnApi
+      parameters:
+      - name: ORG
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /logsessions:
+    post:
+      tags:
+      - Misc
+      summary: Enable Debug w/o Restart
+      description: "  To enable debug on components without restart\n    \n\n`curl -v -u sysadmin_user:sysadmin_pass -X POST \"http://localhost:8082/v1/logsessions?session=logsession_name\" `\n  \n      To View\n  tail -f /opt/apigee4/var/log/apigee/{message-processor|router|management-server}/logs/system.log\n\n  The port on is 8080 , routers 8081 and Mp 8082"
+      operationId: EnableDebugW/oRestart
+      parameters:
+      - name: session
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: logsession_name
+        example: logsession_name
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/companies/{COMPANY}/apps:
+    post:
+      tags:
+      - Apps
+      summary: Create Company APP
+      description: ''
+      operationId: CreateCompanyApp
+      parameters:
+      - name: COMPANY
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: >
+                <App name="Companyapp1">
+
+                <AccessType>read</AccessType>
+
+
+
+                <ApiProducts>
+
+                <ApiProduct>base</ApiProduct>
+
+                </ApiProducts>
+
+
+
+
+                <AppFamily>Production</AppFamily>
+
+
+                <Attributes>
+
+                <Attribute>
+
+                <Name>TropoAppToken</Name>
+
+                <Value>
+
+                98222c9d3bb44e9953438f86c661aaa3159f978814c10b9b6d4a70a0340039d46d3ab081c9e0198609e7850c
+
+                </Value>
+
+                </Attribute>
+
+                <Attribute>
+
+                <Name>shortcode</Name>
+
+                <Value>37367045</Value>
+
+                </Attribute>
+
+
+                <Attribute>
+
+                <Name>MMSURL</Name>
+
+                <Value>https://api-dev-test.priv.bf.pacer.sl.attcompute.com/QAUtils/MOEndpoint</Value>
+
+                </Attribute>
+
+
+                <Attribute>
+
+                <Name>SMSMOURL</Name>
+
+                <Value>https://api-dev-test.priv.bf.pacer.sl.attcompute.com/QAUtils/MOEndpoint</Value>
+
+                </Attribute>
+
+
+                <Attribute>
+
+                <Name>merchant_id</Name>
+
+                <Value>d947b98e-950f-40c4-908a-28ce14ebe703</Value>
+
+                </Attribute>
+
+
+                </Attributes>
+
+
+                <CallbackUrl>www.apigee.com</CallbackUrl>
+
+
+
+                </App>
+            example: >
+              <App name="Companyapp1">
+
+              <AccessType>read</AccessType>
+
+
+
+              <ApiProducts>
+
+              <ApiProduct>base</ApiProduct>
+
+              </ApiProducts>
+
+
+
+
+              <AppFamily>Production</AppFamily>
+
+
+              <Attributes>
+
+              <Attribute>
+
+              <Name>TropoAppToken</Name>
+
+              <Value>
+
+              98222c9d3bb44e9953438f86c661aaa3159f978814c10b9b6d4a70a0340039d46d3ab081c9e0198609e7850c
+
+              </Value>
+
+              </Attribute>
+
+              <Attribute>
+
+              <Name>shortcode</Name>
+
+              <Value>37367045</Value>
+
+              </Attribute>
+
+
+              <Attribute>
+
+              <Name>MMSURL</Name>
+
+              <Value>https://api-dev-test.priv.bf.pacer.sl.attcompute.com/QAUtils/MOEndpoint</Value>
+
+              </Attribute>
+
+
+              <Attribute>
+
+              <Name>SMSMOURL</Name>
+
+              <Value>https://api-dev-test.priv.bf.pacer.sl.attcompute.com/QAUtils/MOEndpoint</Value>
+
+              </Attribute>
+
+
+              <Attribute>
+
+              <Name>merchant_id</Name>
+
+              <Value>d947b98e-950f-40c4-908a-28ce14ebe703</Value>
+
+              </Attribute>
+
+
+              </Attributes>
+
+
+              <CallbackUrl>www.apigee.com</CallbackUrl>
+
+
+
+              </App>
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/users:
+    post:
+      tags:
+      - Users
+      summary: Create User in ORG
+      description: >2-
+          Replace <org-name> with Organization user needs to be added to
+
+          Change details with that of the users.
+      operationId: CreateUserInOrg
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: <User><FirstName>Shahzad</FirstName><LastName>Ali</LastName><Password>secret12</Password><EmailId>nottheemail@gmail.com</EmailId></User>
+            example: <User><FirstName>Shahzad</FirstName><LastName>Ali</LastName><Password>secret12</Password><EmailId>nottheemail@gmail.com</EmailId></User>
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /users:
+    get:
+      tags:
+      - Users
+      summary: List Users
+      description: ''
+      operationId: ListUsers
+      parameters: []
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/environments/{ENV}/virtualhosts:
+    get:
+      tags:
+      - VirtualHosts
+      summary: List VirtualHosts
+      description: '  Update {{ORG}} and {{ENV}} variables as necessary to create a new environment'
+      operationId: ListVirtualhosts
+      parameters:
+      - name: ORG
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: ENV
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      tags:
+      - VirtualHosts
+      summary: Add Virtual Host
+      description: "  Update {{ORG}} and {{ENV}} variables as necessary to create a new environment\n    \n  Update HostAlias\n   \n"
+      operationId: AddVirtualHost
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: "<VirtualHost name=\"default\">\n  <HostAliases>\n    <HostAlias>myorg- test.apigee.net</HostAlias>\n  </HostAliases>\n  <Interfaces/> \n  <Port>443</Port>\n</VirtualHost>"
+            example: "<VirtualHost name=\"default\">\n  <HostAliases>\n    <HostAlias>myorg- test.apigee.net</HostAlias>\n  </HostAliases>\n  <Interfaces/> \n  <Port>443</Port>\n</VirtualHost>"
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /servers/35553ca7-9b49-4b1e-94d0-bda583836c6d:
+    post:
+      tags:
+      - Servers
+      summary: Set not reachable
+      description: "  Set a server as reachable or not reachable by variable.. Change <uuid> with the UUID of the server. \n    \n"
+      operationId: SetNotReachable
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              required:
+              - reachable
+              type: object
+              properties:
+                reachable:
+                  type: string
+                  example: false
+        required: false
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/apis/{api}/revisions/{revision}/deployments:
+    get:
+      tags:
+      - Deployments
+      summary: Deployments
+      description: ''
+      operationId: Deployments
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      tags:
+      - APIs
+      summary: Undeploy Revisions
+      description: "  Undeploy revision before going ahead and removing any API's.\n    \n`curl -v -u username:password http://localhost:8080/organizations/<orgname>/apis/<api you want to delete>/revisions/<revisionnumber>/deployments?action=undeploy\\&env=<env where deployed>\\&force=true -X POST`"
+      operationId: UndeployRevisions
+      parameters:
+      - name: action
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: undeploy
+        example: undeploy
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/e/{ENV}/servers:
+    get:
+      tags:
+      - Servers
+      summary: List org/env servers
+      description: ''
+      operationId: ListOrg/envServers
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      tags:
+      - Servers
+      summary: Register server with org
+      description: ''
+      operationId: RegisterServerWithOrg
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/environments/{ENV}:
+    post:
+      tags:
+      - Environments
+      summary: Update Environments
+      description: >2-
+          Updates a specific environment in an organization.Descriptionn could be updated using the same.
+
+        `curl -u user:passwd "http://localhost:8080/organizations/{{ORG}}/environments/{{ENV}}" `
+      operationId: UpdateEnvironments
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    delete:
+      tags:
+      - Environments
+      summary: Delete Environment
+      description: >2-
+          Deletes a specific environment in an organization.
+
+        `curl "http://localhost:8080/organizations/{ORG}/environments/{ENV}" -X DELETE -u user:passwd `
+      operationId: DeleteEnvironment
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/developers/{email}/apps/{app}/keys/create:
+    post:
+      tags:
+      - Apps
+      summary: Add app credentials
+      description: ''
+      operationId: AddAppCredentials
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: "<CredentialRequest>  \n            <Attributes/>\n            <ConsumerKey>_key_</ConsumerKey>\n            <ConsumerSecret>_secret_</ConsumerSecret>\n            <ApiProducts>\n            </ApiProducts>\n            <Scopes/>\n</CredentialRequest>\n"
+            example: "<CredentialRequest>  \n            <Attributes/>\n            <ConsumerKey>_key_</ConsumerKey>\n            <ConsumerSecret>_secret_</ConsumerSecret>\n            <ApiProducts>\n            </ApiProducts>\n            <Scopes/>\n</CredentialRequest>\n"
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/companies/{COMPANY}/developers:
+    post:
+      tags:
+      - Misc
+      summary: Create Company Developer
+      description: ''
+      operationId: CreateCompanyDeveloper
+      parameters:
+      - name: COMPANY
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              example:
+                developer:
+                - email: sali@apigee.com
+                  role: developer
+              $ref: '#/components/schemas/CreateCompanyDeveloperrequest'
+            example: '{"developer":[{"email":"sali@apigee.com","role":"developer"}]}'
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/environments/{ENV}/servers:
+    post:
+      tags:
+      - Servers
+      summary: Associate  environments to MP
+      description: "  Update {{ORG}} and {{ENV}} variables as necessary to create a new environment\n    \n    Replace <uuid> with the UUID of the Message Processor(s).\n"
+      operationId: AssociateEnvironmentsToMp
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+        example: application/x-www-form-urlencoded
+      - name: ORG
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: ENV
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/developers/{email}/apps/{app}:
+    get:
+      tags:
+      - Developer App
+      summary: Developer App Details Get
+      description: ''
+      operationId: DeveloperAppDetailsGet
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/developers/{email}/apps/{app}/keys/{key}:
+    delete:
+      tags:
+      - Developer App
+      summary: Delete app credentials
+      description: ''
+      operationId: DeleteAppCredentials
+      parameters:
+      - name: Accept
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/xml
+        example: application/xml
+      - name: ORG
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/environments:
+    post:
+      tags:
+      - Environments
+      summary: Create New ENV in ORG
+      description: '  Update {{ORG}} and {{ENV}} variables as necessary to create a new environment'
+      operationId: CreateNewEnvInOrg
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: <Environment name="dev"/>
+            example: <Environment name="dev"/>
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/e/{ENV}/keystores:
+    get:
+      tags:
+      - Keystores
+      summary: List Keystores
+      description: '  List the keystores in the environment'
+      operationId: ListKeystores
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/userroles/user/permissions:
+    get:
+      tags:
+      - User Roles
+      summary: Get permissions for a role
+      description: ''
+      operationId: GetPermissionsForARole
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/apiproducts:
+    get:
+      tags:
+      - Products
+      summary: API Products
+      description: ''
+      operationId: ApiProducts
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      tags:
+      - Products
+      summary: API Product Creation
+      description: ''
+      operationId: ApiproductCreation
+
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: >-
+                <ApiProduct name="base">
+
+                <ApiResources/>
+
+                <ApprovalType>auto</ApprovalType>
+
+                <Attributes>
+
+                <Attribute>
+
+                <Name>description</Name>
+
+                <Value/>
+
+                </Attribute>
+
+                <Attribute>
+
+                <Name>developer.quota.interval</Name>
+
+                <Value>1</Value>
+
+                </Attribute>
+
+                <Attribute>
+
+                <Name>developer.quota.limit</Name>
+
+                <Value>2000000</Value>
+
+                </Attribute>
+
+                <Attribute>
+
+                <Name>developer.quota.timeunit</Name>
+
+                <Value>month</Value>
+
+                </Attribute>
+
+                <Attribute>
+
+                <Name>access</Name>
+
+                <Value>internal</Value>
+
+                </Attribute>
+
+                <Attribute>
+
+                <Name>apisDeployedIn</Name>
+
+                <Value>prod</Value>
+
+                </Attribute>
+
+                <Attribute>
+
+                <Name>servicePlan</Name>
+
+                <Value>null</Value>
+
+                </Attribute>
+
+                <Attribute>
+
+                <Name>apiResourcesInfo</Name>
+
+                <Value>[]</Value>
+
+                </Attribute>
+
+                <Attribute>
+
+                <Name>disabledApiResourcesInfo</Name>
+
+                <Value>[]</Value>
+
+                </Attribute>
+
+                </Attributes>
+
+                <Description/>
+
+                <DisplayName>base</DisplayName>
+
+                <Scopes/>
+
+                </ApiProduct>
+            example: >-
+              <ApiProduct name="base">
+
+              <ApiResources/>
+
+              <ApprovalType>auto</ApprovalType>
+
+              <Attributes>
+
+              <Attribute>
+
+              <Name>description</Name>
+
+              <Value/>
+
+              </Attribute>
+
+              <Attribute>
+
+              <Name>developer.quota.interval</Name>
+
+              <Value>1</Value>
+
+              </Attribute>
+
+              <Attribute>
+
+              <Name>developer.quota.limit</Name>
+
+              <Value>2000000</Value>
+
+              </Attribute>
+
+              <Attribute>
+
+              <Name>developer.quota.timeunit</Name>
+
+              <Value>month</Value>
+
+              </Attribute>
+
+              <Attribute>
+
+              <Name>access</Name>
+
+              <Value>internal</Value>
+
+              </Attribute>
+
+              <Attribute>
+
+              <Name>apisDeployedIn</Name>
+
+              <Value>prod</Value>
+
+              </Attribute>
+
+              <Attribute>
+
+              <Name>servicePlan</Name>
+
+              <Value>null</Value>
+
+              </Attribute>
+
+              <Attribute>
+
+              <Name>apiResourcesInfo</Name>
+
+              <Value>[]</Value>
+
+              </Attribute>
+
+              <Attribute>
+
+              <Name>disabledApiResourcesInfo</Name>
+
+              <Value>[]</Value>
+
+              </Attribute>
+
+              </Attributes>
+
+              <Description/>
+
+              <DisplayName>base</DisplayName>
+
+              <Scopes/>
+
+              </ApiProduct>
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/e/{ENV}/targetservers:
+    get:
+      tags:
+      - TargetServers
+      summary: List Target Servers
+      description: '  List all the target servers for the org and env'
+      operationId: ListTargetServers
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+    post:
+      tags:
+      - TargetServers
+      summary: Add Target
+      description: ''
+      operationId: AddTarget
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              example:
+                host: 10.1.124.41
+                isEnabled: true
+                name: SpeechTest
+                port: 18080
+              $ref: '#/components/schemas/AddTargetrequest'
+            example: '{"host":"10.1.124.41","isEnabled":true,"name":"SpeechTest","port":18080}'
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/companies:
+    post:
+      tags:
+      - Company
+      summary: Create Company
+      description: ''
+      operationId: CreateCompany
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: >-
+                <Company name="DevCompany">
+                    <Apps>
+                        <App>Companyapp1</App>
+                    </Apps>
+                    <DisplayName>Developer Company</DisplayName>
+                    <Organization>prod</Organization>
+                    <Status>active</Status>
+                    <Attributes>
+                        <Attribute>
+                            <Name>OrgStatus</Name>
+                            <Value>active</Value>
+                        </Attribute>
+                        <Attribute>
+                            <Name>Region</Name>
+                            <Value>north</Value>
+                        </Attribute>
+                    </Attributes>
+                </Company>
+            example: >-
+              <Company name="DevCompany">
+                  <Apps>
+                      <App>Companyapp1</App>
+                  </Apps>
+                  <DisplayName>Developer Company</DisplayName>
+                  <Organization>prod</Organization>
+                  <Status>active</Status>
+                  <Attributes>
+                      <Attribute>
+                          <Name>OrgStatus</Name>
+                          <Value>active</Value>
+                      </Attribute>
+                      <Attribute>
+                          <Name>Region</Name>
+                          <Value>north</Value>
+                      </Attribute>
+                  </Attributes>
+              </Company>
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /logsessions/logsession_name:
+    delete:
+      tags:
+      - Misc
+      summary: Disable Debug w/o Restart
+      description: >2-
+          To disable
+
+        ```  curl -v -u sysadmin_user:sysadmin_pass "http://localhost:8082/v1/logsessions/logsession_name" -X DELETE```
+
+          The port on MS is 8080 , routers 8081 and Mp 8082
+      operationId: DisableDebugW/oRestart
+      parameters:
+      - name: Content-Type
+        in: header
+        description: ''
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: application/x-www-form-urlencoded
+        example: application/x-www-form-urlencoded
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/users/{email}/userroles/:
+    post:
+      tags:
+      - Users
+      summary: Add user as Orgadmin
+      description: "  Replace <org-name> with Organization name and <user-email> with users email\n\n  If A different Role needs to be created the available options are\n\n  -  orgadmin\n    -  opsadmin\n    -  user\n    -  businessuser\n    \n  All have default permissions and full access to all entitires (APIs,API Products,Apps, Developers and Reports)\n\n  More complex roles and permissions can be configured using the RBAC API"
+      operationId: AddUserAsOrgadmin
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: <Roles><Role name="orgadmin"/></Roles>
+            example: <Roles><Role name="orgadmin"/></Roles>
+        required: true
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/apps:
+    get:
+      tags:
+      - Apps
+      summary: List apps
+      description: '  add expand=true to the QS to get more info'
+      operationId: ListApps
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations/{ORG}/apps/{appid}:
+    get:
+      tags:
+      - Apps
+      summary: List app
+      description: '  List out an app details'
+      operationId: ListApp
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /organizations:
+    get:
+      tags:
+      - Organizations
+      summary: List organizations
+      description: ''
+      operationId: ListOrganizations
+      parameters: []
+      responses:
+        200:
+          description: ''
+      security:
+      - httpBasic: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+components:
+  schemas:
+    UserRolesUpdaterequest:
+      title: User Roles UpdateRequest
+      required:
+      - role
+      type: object
+      properties:
+        role:
+          type: array
+          items:
+            example:
+            - name: orgadmin
+              organization: dev
+            - name: sysadmin
+            $ref: '#/components/schemas/Role'
+          description: ''
+      example:
+        role:
+        - name: orgadmin
+          organization: dev
+        - name: sysadmin
+    Role:
+      title: Role
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: orgadmin
+        organization:
+          type: string
+          example: dev
+      example:
+        name: orgadmin
+        organization: dev
+    CreateCompanyDeveloperrequest:
+      title: Create Company DeveloperRequest
+      required:
+      - developer
+      type: object
+      properties:
+        developer:
+          type: array
+          items:
+            example:
+            - email: sali@apigee.com
+              role: developer
+            $ref: '#/components/schemas/Developer'
+          description: ''
+      example:
+        developer:
+        - email: sali@apigee.com
+          role: developer
+    Developer:
+      title: Developer
+      required:
+      - email
+      - role
+      type: object
+      properties:
+        email:
+          type: string
+          example: sali@apigee.com
+        role:
+          type: string
+          example: developer
+      example:
+        email: sali@apigee.com
+        role: developer
+    AddTargetrequest:
+      title: Add TargetRequest
+      required:
+      - host
+      - isEnabled
+      - name
+      - port
+      type: object
+      properties:
+        host:
+          type: string
+          example: 10.1.124.41
+        isEnabled:
+          type: boolean
+          example: true
+        name:
+          type: string
+          example: SpeechTest
+        port:
+          type: integer
+          format: int32
+          example: 18080
+      example:
+        host: 10.1.124.41
+        isEnabled: true
+        name: SpeechTest
+        port: 18080
+  securitySchemes:
+    httpBasic:
+      type: http
+      scheme: basic
+  parameters:
+    ORG:
+      name: ORG
+      in: path
+      description: 'The name of an organization (tenant)'
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    ENV:
+      name: ENV
+      in: path
+      description: 'The name of an environment'
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+      example: 'dev'
+    email:
+      name: email
+      in: path
+      description: 'an email address of the user'
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+      example: 'email@example.com'
+    app:
+      name: app
+      in: path
+      description: 'The name of an app'
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+security:
+- httpBasic: []
