@@ -1,0 +1,1380 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Apigee Edge API Management",
+		"_postman_id": "8fd57334-dd42-c5ae-c8cc-faea0511189f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "APIs",
+			"description": "",
+			"item": [
+				{
+					"name": "Delete an API",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/apis/testing",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  Make sure all revisions of an API are removed before going ahead and undeploying an API\n\n`curl -v -u username:password http://localhost:8080/v1/organizations/<orgname>/apis/<api you want to delete> -X DELETE`"
+					},
+					"response": []
+				},
+				{
+					"name": "Api list",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/apis",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Undeploy Revisions",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/apis/_API_/revisions/_revision_/deployments?action=undeploy&env={{ENV}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "  Undeploy revision before going ahead and removing any API's.\n    \n`curl -v -u username:password http://localhost:8080/v1/organizations/<orgname>/apis/<api you want to delete>/revisions/<revisionnumber>/deployments?action=undeploy\\&env=<env where deployed>\\&force=true -X POST`"
+					},
+					"response": []
+				},
+				{
+					"name": "Deploy API",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/apis?action=import\\&name=_API_",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  Deploy the API in the environment you want to with a revision number one higher than the already existing revisions\n    \n`curl -v -u username:password -X POST http://localhost:8080/v1/organizations/{{ORG}}/apis/{{API}}/revisions/<revisionnumber>/deployments?action=deploy\\&env={{ENV}} -H \"Content-Type: application/octet-stream\"`"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Apps",
+			"description": "",
+			"item": [
+				{
+					"name": "List apps ",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/apps",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  add expand=true to the QS to get more info"
+					},
+					"response": []
+				},
+				{
+					"name": "Add app credentials",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/_devemail_/apps/_appname_/keys/create",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic bWR1bmtlckBhcGlnZWUuY29tOlVTb2x5bXAxYzUvL2EsLA==",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<CredentialRequest>  \n            <Attributes/>\n            <ConsumerKey>_key_</ConsumerKey>\n            <ConsumerSecret>_secret_</ConsumerSecret>\n            <ApiProducts>\n            </ApiProducts>\n            <Scopes/>\n</CredentialRequest>\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Company APP",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/companies/{{COMPANY}}/apps",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<App name=\"Companyapp1\">\n<AccessType>read</AccessType>\n\n\n<ApiProducts>\n<ApiProduct>base</ApiProduct>\n</ApiProducts>\n\n\n\n<AppFamily>Production</AppFamily>\n\n<Attributes>\n<Attribute>\n<Name>TropoAppToken</Name>\n<Value>\n98222c9d3bb44e9953438f86c661aaa3159f978814c10b9b6d4a70a0340039d46d3ab081c9e0198609e7850c\n</Value>\n</Attribute>\n<Attribute>\n<Name>shortcode</Name>\n<Value>37367045</Value>\n</Attribute>\n\n<Attribute>\n<Name>MMSURL</Name>\n<Value>https://api-dev-test.priv.bf.pacer.sl.attcompute.com/QAUtils/MOEndpoint</Value>\n</Attribute>\n\n<Attribute>\n<Name>SMSMOURL</Name>\n<Value>https://api-dev-test.priv.bf.pacer.sl.attcompute.com/QAUtils/MOEndpoint</Value>\n</Attribute>\n\n<Attribute>\n<Name>merchant_id</Name>\n<Value>d947b98e-950f-40c4-908a-28ce14ebe703</Value>\n</Attribute>\n\n</Attributes>\n\n<CallbackUrl>www.apigee.com</CallbackUrl>\n\n\n</App>\n"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List app",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/apps/_appid_",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  List out an app details"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Audit",
+			"description": "",
+			"item": [
+				{
+					"name": "Audit",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/audits/o/{{ORG}}/companies?expand=true&timeline=month",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bundle",
+			"description": "",
+			"item": [
+				{
+					"name": "Import Bundle",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/apis?action=import\\&name=_API_",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/octet-stream",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"description": "  Import a bundle. Replace {{API}} with the api the bundle is being imported into and upload the <bundle name>.zip file below.\n    \n    If you wish to verify syntax as part of the upload. Add \\&validate=true after {{API}}\n\n`curl -v -u username:password -X POST http://localhost:8080/v1/organizations/<orgname>/apis?action=import\\&name={{API}} -H \"Content-Type: application/octet-stream\" -T <bundle name>.zip`\n\n\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cache",
+			"description": "",
+			"item": [
+				{
+					"name": "List caches",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/e/{{ENV}}/caches",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Company",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/companies",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<Company name=\"DevCompany\">\n    <Apps>\n        <App>Companyapp1</App>\n    </Apps>\n    <DisplayName>Developer Company</DisplayName>\n    <Organization>prod</Organization>\n    <Status>active</Status>\n    <Attributes>\n        <Attribute>\n            <Name>OrgStatus</Name>\n            <Value>active</Value>\n        </Attribute>\n        <Attribute>\n            <Name>Region</Name>\n            <Value>north</Value>\n        </Attribute>\n    </Attributes>\n</Company>"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deployments",
+			"description": "",
+			"item": [
+				{
+					"name": "Deployments",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/apis/_api_/revisions/_revision_/deployments",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List Deployments",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/deployments",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  Gets all the deployments of an organization"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Developer App",
+			"description": "",
+			"item": [
+				{
+					"name": "Developer App Details Get",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/developers/_devemail_/apps/_app_",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete app credentials",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/_devemail_/apps/_appname_/keys/_key_",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Developers",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Developer",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<Developer>\n  <Email>thisisnottheemail@apigee.com</Email>\n  <FirstName>Argyle</FirstName>\n  <LastName>Robinson</LastName>\n  <UserName>doh</UserName>\n  <OrganizationName>Apigee</OrganizationName>\n  <Status>active</Status>\n  <Attributes/>\n</Developer>"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Developers",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Environments",
+			"description": "",
+			"item": [
+				{
+					"name": "Delete Environment",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/environments/{{ENV}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  Deletes a specific environment in an organization.\n\n`curl \"http://localhost:8080/v1/organizations/{ORG}/environments/{ENV}\" -X DELETE -u user:passwd `"
+					},
+					"response": []
+				},
+				{
+					"name": "Create New ENV in ORG",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/environments",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<Environment name=\"dev\"/>"
+						},
+						"description": "  Update {{ORG}} and {{ENV}} variables as necessary to create a new environment"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Environments",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/environments/{{ENV}}",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "  Updates a specific environment in an organization.Descriptionn could be updated using the same.\n\n`curl -u user:passwd \"http://localhost:8080/v1/organizations/{{ORG}}/environments/{{ENV}}\" `"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "KVM",
+			"description": "",
+			"item": [
+				{
+					"name": "KVM Get",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/e/{{ENV}}/keyvaluemaps/_kvm_",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "KVM Delete (Entire KVM)",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/e/{{ENV}}/keyvaluemaps/_kvm_",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Keystores",
+			"description": "",
+			"item": [
+				{
+					"name": "List Keystores",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/e/{{ENV}}/keystores",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  List the keystores in the environment"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OAuth",
+			"description": "",
+			"item": [
+				{
+					"name": "OAuth2 Token Details Get",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/oauth2/accesstokens/_tokenid_",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organizations",
+			"description": "",
+			"item": [
+				{
+					"name": "List organizations",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pods",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Associated  Pods",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/pods",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Gateway Pod",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/servers?pod=gateway",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Disassociate Org from POD",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/pods",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "action=remove&region={{REGION}}&pod={{POD}}"
+						},
+						"description": "  Disassociate a pod with an Organization"
+					},
+					"response": []
+				},
+				{
+					"name": "Analytics pod",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/servers?pod=analytics",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Associate Org to POD",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/pods",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "region={{REGION}}&pod={{POD}}"
+						},
+						"description": "  Associate a pod with an organization"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"description": "",
+			"item": [
+				{
+					"name": "Api Products",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/apiproducts",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "APIproduct Creation",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<ApiProduct name=\"base\">\n<ApiResources/>\n<ApprovalType>auto</ApprovalType>\n<Attributes>\n<Attribute>\n<Name>description</Name>\n<Value/>\n</Attribute>\n<Attribute>\n<Name>developer.quota.interval</Name>\n<Value>1</Value>\n</Attribute>\n<Attribute>\n<Name>developer.quota.limit</Name>\n<Value>2000000</Value>\n</Attribute>\n<Attribute>\n<Name>developer.quota.timeunit</Name>\n<Value>month</Value>\n</Attribute>\n<Attribute>\n<Name>access</Name>\n<Value>internal</Value>\n</Attribute>\n<Attribute>\n<Name>apisDeployedIn</Name>\n<Value>prod</Value>\n</Attribute>\n<Attribute>\n<Name>servicePlan</Name>\n<Value>null</Value>\n</Attribute>\n<Attribute>\n<Name>apiResourcesInfo</Name>\n<Value>[]</Value>\n</Attribute>\n<Attribute>\n<Name>disabledApiResourcesInfo</Name>\n<Value>[]</Value>\n</Attribute>\n</Attributes>\n<Description/>\n<DisplayName>base</DisplayName>\n<Scopes/>\n</ApiProduct>"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Servers",
+			"description": "",
+			"item": [
+				{
+					"name": "List Server by UUID",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/servers/<uuid>",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "    Replace <uuid> with the UUID of the server whose information is needed"
+					},
+					"response": []
+				},
+				{
+					"name": "List Servers",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/servers",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  Add the below and pod name for servers from different pods.\n\n    "
+					},
+					"response": []
+				},
+				{
+					"name": "List org/env servers",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/e/{{ENV}}/servers",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Register server with org",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/e/{{ENV}}/servers",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "region=dc-1&uuid=&pod=gateway-1&action=add"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Associate  environments to MP",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/environments/{{ENV}}/servers",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "action=add&uuid=<uuid>"
+						},
+						"description": "  Update {{ORG}} and {{ENV}} variables as necessary to create a new environment\n    \n    Replace <uuid> with the UUID of the Message Processor(s).\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Set not reachable",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/servers/35553ca7-9b49-4b1e-94d0-bda583836c6d",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "reachable",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"description": "  Set a server as reachable or not reachable by variable.. Change <uuid> with the UUID of the server. \n    \n"
+					},
+					"response": []
+				},
+				{
+					"name": "Deregister",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/servers",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "region=dc-1&uuid=&pod=analytics&action=remove"
+						},
+						"description": "  Deregister a Server"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TargetServers",
+			"description": "",
+			"item": [
+				{
+					"name": "Add Target",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/e/{{ENV}}/targetservers",
+						"method": "POST",
+						"header": [
+							{
+								"key": "content-type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"host\": \"10.1.124.41\",\n    \"isEnabled\": true,\n    \"name\": \"SpeechTest\",\n    \"port\": 18080\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List Target Servers",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/e/{{ENV}}/targetservers",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  List all the target servers for the org and env"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Roles",
+			"description": "",
+			"item": [
+				{
+					"name": "User Roles Update",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/users/_email_/userroles",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"role\" : [ { \"name\" : \"orgadmin\", \"organization\" : \"dev\" }, { \"name\" : \"sysadmin\" } ] }"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get permissions for a role",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/userroles/user/permissions",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an organization userrole",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/users/_devemail_/userroles/user?org={{ORG}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "Create User in ORG",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<User><FirstName>Shahzad</FirstName><LastName>Ali</LastName><Password>secret12</Password><EmailId>nottheemail@gmail.com</EmailId></User>"
+						},
+						"description": "  Replace <org-name> with Organization user needs to be added to\n\n  Change details with that of the users."
+					},
+					"response": []
+				},
+				{
+					"name": "Developer Details Get",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/o/{{ORG}}/developers/_devemail_",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List Users",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add user as Orgadmin",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/users/shezze@ab.com/userroles/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<Roles><Role name=\"orgadmin\"/></Roles>"
+						},
+						"description": "  Replace <org-name> with Organization name and <user-email> with users email\n\n  If A different Role needs to be created the available options are\n\n  -  orgadmin\n    -  opsadmin\n    -  user\n    -  businessuser\n    \n  All have default permissions and full access to all entitires (APIs,API Products,Apps, Developers and Reports)\n\n  More complex roles and permissions can be configured using the RBAC API"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "VirtualHosts",
+			"description": "",
+			"item": [
+				{
+					"name": "List VirtualHosts",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/environments/{{ENV}}/virtualhosts",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  Update {{ORG}} and {{ENV}} variables as necessary to create a new environment"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Virtual Host",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/environments/{{ENV}}/virtualhosts",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<VirtualHost name=\"default\">\n  <HostAliases>\n    <HostAlias>myorg- test.apigee.net</HostAlias>\n  </HostAliases>\n  <Interfaces/> \n  <Port>443</Port>\n</VirtualHost>"
+						},
+						"description": "  Update {{ORG}} and {{ENV}} variables as necessary to create a new environment\n    \n  Update HostAlias\n   \n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "zzzOthers",
+			"description": "",
+			"item": [
+				{
+					"name": "Disable Debug w/o Restart",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/logsessions/logsession_name",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  To disable\n\n```  curl -v -u sysadmin_user:sysadmin_pass \"http://localhost:8082/v1/logsessions/logsession_name\" -X DELETE```\n\n  The port on MS is 8080 , routers 8081 and Mp 8082"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Company Developer",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/companies/{{COMPANY}}/developers",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"developer\": [\n        {\n            \"email\": \"sali@apigee.com\",\n            \"role\": \"developer\"\n        }\n    ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Build Info",
+					"request": {
+						"url": "{{PROTO}}://{{HOST}}:{{PORT}}/v1/buildinfo",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "audio data",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Enable Debug w/o Restart ",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/logsessions?session=logsession_name",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  To enable debug on components without restart\n    \n\n`curl -v -u sysadmin_user:sysadmin_pass -X POST \"http://localhost:8082/v1/logsessions?session=logsession_name\" `\n  \n      To View\n  tail -f /opt/apigee4/var/log/apigee/{message-processor|router|management-server}/logs/system.log\n\n  The port on is 8080 , routers 8081 and Mp 8082"
+					},
+					"response": []
+				},
+				{
+					"name": "Classifications",
+					"request": {
+						"url": "{{PROTO}}://{{HOST}}:8081/v1/classification/tree",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  This is an API call to verify api deployment status"
+					},
+					"response": []
+				},
+				{
+					"name": "Cluster Status",
+					"request": {
+						"url": "{{MGMTSVR}}/v1/cluster",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "  If memberCount and the reachableCount are not the same check firewall connectivity PORT:4526 between the nodes.\n    \n    Add /members to see individual node information for each cluster member"
+					},
+					"response": []
+				},
+				{
+					"name": "QPID Metrics",
+					"request": {
+						"url": "{{PROTO}}://{{HOST}}:8080/v1/runtime/metrics/QPID-CLIENT",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{BASICAUTH}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
