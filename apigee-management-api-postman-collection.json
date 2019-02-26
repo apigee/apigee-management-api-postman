@@ -829,7 +829,7 @@
 			"data": [],
 			"descriptionFormat": "html",
 			"description": "",
-			"headers": "Authorization: Basic bWR1bmtlckBhcGlnZWUuY29tOlVTb2x5bXAxYzUvL2EsLA==\nContent-Type: application/xml\n",
+			"headers": "Authorization: Basic {{BASICAUTH}}\nContent-Type: application/xml\n",
 			"method": "POST",
 			"pathVariables": {},
 			"url": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/_devemail_/apps/_appname_/keys/create",
