@@ -123,7 +123,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Basic bWR1bmtlckBhcGlnZWUuY29tOlVTb2x5bXAxYzUvL2EsLA==",
+								"value": "Basic {{BASICAUTH}}",
 								"description": ""
 							},
 							{
